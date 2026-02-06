@@ -1,55 +1,69 @@
 <html>
-<body> 
-<script src="js/script.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Collection</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <script src="js/script.js"></script>
 
-<div align="center">
-    <h2>Calculator Collection </h2>
-    
-    <!-- Main Switcher -->
-    <select id="mainSwitcher" onchange="switchCalc()">
-        <option value="sumDiv">Sum Calculator</option>
-        <option value="divDiv">Division Calculator</option>
-        <option value="percDiv">Percentage Calculator</option>
-        <option value="profDiv">Profit Calculator</option>
-    </select>
+    <div class="container">
+        <div class="calculator-wrapper">
+            <h1>Calculator Collection</h1>
+            
+            <!-- Main Switcher -->
+            <select id="mainSwitcher" class="calculator-select" onchange="switchCalc()">
+                <option value="sumDiv">Sum Calculator</option>
+                <option value="divDiv">Division Calculator</option>
+                <option value="percDiv">Percentage Calculator</option>
+                <option value="profDiv">Profit Calculator</option>
+            </select>
 
-    <hr width="300">
+            <!-- SUM CALCULATOR -->
+            <div id="sumDiv" class="calculator-section">
+                <h2>Sum</h2>
+                <div class="input-group">
+                    <input type="number" id="s1" placeholder="Number 1" oninput="calcSum()">
+                    <input type="number" id="s2" placeholder="Number 2" oninput="calcSum()">
+                </div>
+                <div class="result">Result: <span id="rSum">0</span></div>
+            </div>
 
-    <!-- SUM CALCULATOR -->
-    <div id="sumDiv">
-        <h4>Sum</h4>
-        <input type="number" id="s1" placeholder="Number 1" oninput="calcSum()"> +
-        <input type="number" id="s2" placeholder="Number 2" oninput="calcSum()">
-        <p>Result: <b id="rSum">0</b></p>
+            <!-- DIVISION CALCULATOR -->
+            <div id="divDiv" class="calculator-section" hidden>
+                <h2>Division</h2>
+                <div class="input-group">
+                    <input type="number" id="d1" placeholder="Total" oninput="calcDiv()">
+                    <span class="operator">/</span>
+                    <input type="number" id="d2" placeholder="Divide by" oninput="calcDiv()">
+                </div>
+                <div class="result">Result: <span id="rDiv">0</span></div>
+            </div>
+
+            <!-- PERCENTAGE CALCULATOR -->
+            <div id="percDiv" class="calculator-section" hidden>
+                <h2>Percentage</h2>
+                <div class="input-group">
+                    <input type="number" id="p1" placeholder="Percent %" oninput="calcPerc()">
+                    <span class="operator">% of</span>
+                    <input type="number" id="p2" placeholder="Value" oninput="calcPerc()">
+                </div>
+                <div class="result">Result: <span id="rPerc">0</span></div>
+            </div>
+
+            <!-- PROFIT CALCULATOR -->
+            <div id="profDiv" class="calculator-section" hidden>
+                <h2>Profit/Loss</h2>
+                <div class="input-group">
+                    <input type="number" id="pr1" placeholder="Revenue" oninput="calcProf()">
+                    <span class="operator">−</span>
+                    <input type="number" id="pr2" placeholder="Cost" oninput="calcProf()">
+                </div>
+                <div class="result">Result: <span id="rProf">0</span></div>
+            </div>
+        </div>
     </div>
-
-    <!-- DIVISION CALCULATOR -->
-    <div id="divDiv" hidden>
-        <h4>Division</h4>
-        <input type="number" id="d1" placeholder="Total" oninput="calcDiv()"> /
-        <input type="number" id="d2" placeholder="Divide by" oninput="calcDiv()">
-        <p>Result: <b id="rDiv">0</b></p>
-    </div>
-
-    <!-- PERCENTAGE CALCULATOR -->
-    <div id="percDiv" hidden>
-        <h4>Percentage</h4>
-        <input type="number" id="p1" placeholder="Percent %" oninput="calcPerc()"> % of
-        <input type="number" id="p2" placeholder="Value" oninput="calcPerc()">
-        <p>Result: <b id="rPerc">0</b></p>
-    </div>
-
-    <!-- PROFIT CALCULATOR -->
-    <div id="profDiv" hidden>
-        <h4>Profit/Loss</h4>
-        <input type="number" id="pr1" placeholder="Revenue" oninput="calcProf()"> -
-        <input type="number" id="pr2" placeholder="Cost" oninput="calcProf()">
-        <p>Result: <b id="rProf">0</b></p>
-    </div>
-</div>
-  
 
 </body>
-  
-  
 </html>
