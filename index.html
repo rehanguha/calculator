@@ -8,55 +8,21 @@
 <body>
     <script src="js/script.js"></script>
 
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+    <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
         <span id="themeIcon">🌙</span>
-    </button>
+    </div>
 
-    <div class="container">
-        <div class="calculator-wrapper">
-            <h1>Calculator Collection</h1>
-            
-            <!-- Main Switcher -->
-            <select id="mainSwitcher" class="calculator-select" onchange="switchCalc()">
-                <option value="avgStockDiv">Average Stock Price</option>
-                <option value="requiredQtyDiv">Required Quantity & Price</option>
-            </select>
-
-
-            <!-- AVERAGE STOCK PRICE CALCULATOR -->
-            <div id="avgStockDiv" class="calculator-section" >
-                <h2><u>Average Stock Price</u></h2>
-                <div class="input-group">
-                    <label for="oldAvgPrice">Old Average Stock Price</label>
-                    <input type="number" id="oldAvgPrice" placeholder="Old Average Stock Price" step="0.01" oninput="calcAvgStock()" onkeypress="handleEnter(event)">
-                    <label for="oldQty">Quantity of Old Stock</label>
-                    <input type="number" id="oldQty" placeholder="Quantity of Old Stock" oninput="calcAvgStock()" onkeypress="handleEnter(event)">
-                    <label for="newPrice">Price of New Stock</label>
-                    <input type="number" id="newPrice" placeholder="Price of New Stock" step="0.01" oninput="calcAvgStock()" onkeypress="handleEnter(event)">
-                    <label for="newQty">Quantity to Buy</label>
-                    <input type="number" id="newQty" placeholder="Quantity to Buy" oninput="calcAvgStock()" onkeypress="handleEnter(event)">
-                </div>
-                <div class="result">New Average Price: <span id="rAvgStock">0</span></div>
+    <div class="main-container">
+        <div class="header">
+            <h1>🔢 Calculator Collection</h1>
+            <div class="header-buttons">
+                <button class="add-calculator-btn" onclick="addCalculator()" id="addCalcBtn">+ Add</button>
+                <button class="reset-all-btn" onclick="resetAllCalculators()">Reset All</button>
             </div>
+        </div>
 
-            <!-- REQUIRED QUANTITY & PRICE CALCULATOR -->
-            <div id="requiredQtyDiv" class="calculator-section" hidden>
-                <h2><u>Required Quantity & Price</u></h2>
-                <div class="input-group">
-                    <label for="targetAvgPrice">Target Average Stock Price</label>
-                    <input type="number" id="targetAvgPrice" placeholder="Target Average Stock Price" step="0.01" oninput="calcRequiredQty()" onkeypress="handleEnter(event)">
-                    <label for="oldQtyReq">Old Quantity</label>
-                    <input type="number" id="oldQtyReq" placeholder="Old Quantity" oninput="calcRequiredQty()" onkeypress="handleEnter(event)">
-                    <label for="oldAvgPriceReq">Old Average Price</label>
-                    <input type="number" id="oldAvgPriceReq" placeholder="Old Average Price" step="0.01" oninput="calcRequiredQty()" onkeypress="handleEnter(event)">
-                    <label for="newPriceReq">New Purchase Price</label>
-                    <input type="number" id="newPriceReq" placeholder="New Purchase Price" step="0.01" oninput="calcRequiredQty()" onkeypress="handleEnter(event)">
-                </div>
-                <div class="result-group">
-                    <div class="result">Required Quantity: <span id="rRequiredQty">0</span></div>
-                    <div class="result">Total Price: <span id="rTotalPrice">0</span></div>
-                </div>
-            </div>
+        <div class="calculators-grid" id="calculatorsGrid">
+            <!-- Calculator instances will be added here dynamically -->
         </div>
     </div>
 
