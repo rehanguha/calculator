@@ -63,15 +63,20 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     padding: 20px;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
 .main-container {
     width: 100%;
+    height: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .header {
@@ -96,6 +101,27 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin: 0;
+}
+
+.add-calculator-btn, .reset-all-btn, .number-format-select {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.number-format-select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 2px solid var(--input-border);
+}
+
+.number-format-select:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 4px 15px var(--accent-primary);
 }
 
 .add-calculator-btn, .reset-all-btn {
@@ -143,6 +169,27 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     align-items: start;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+}
+
+.calculators-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calculators-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.calculators-grid::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 4px;
+}
+
+.calculators-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
 }
 
 @media (max-width: 1200px) {
@@ -313,6 +360,141 @@ h2 {
 
 .calculator-section {
     animation: fadeIn 0.3s ease;
+}
+
+.section-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.section-header h3 {
+    margin: 0;
+}
+
+.tooltip-icon {
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.tooltip-icon:hover {
+    opacity: 1;
+    transform: scale(1.25) rotate(10deg);
+    filter: brightness(1.3);
+}
+
+.tooltip-box {
+    display: none;
+    position: fixed;
+    background: rgba(30, 30, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--accent-primary);
+    border-radius: 12px;
+    padding: 20px;
+    width: 320px;
+    max-width: 85vw;
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+    z-index: 1001;
+    color: var(--text-primary);
+    animation: tooltipIn 0.3s ease;
+}
+
+.tooltip-box.visible {
+    display: block;
+}
+
+.tooltip-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--accent-primary);
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.tooltip-close:hover {
+    background: rgba(0, 212, 255, 0.2);
+    transform: rotate(90deg);
+    color: var(--accent-secondary);
+}
+}
+
+@keyframes tooltipIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.tooltip-box h4 {
+    margin: 15px 0 8px 0;
+    color: var(--accent-primary);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tooltip-box h4:first-child {
+    margin-top: 0;
+}
+
+.tooltip-description {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.tooltip-box p {
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.tooltip-box .formula {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 12px 0;
+    color: var(--accent-primary);
+}
+
+@media (prefers-color-scheme: light) {
+    .tooltip-box {
+        background: rgba(245, 245, 245, 0.95);
+        border-color: var(--accent-primary);
+        box-shadow: 0 10px 40px rgba(0, 153, 255, 0.2);
+    }
 }
 
 @keyframes fadeIn {
