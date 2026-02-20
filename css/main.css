@@ -141,13 +141,26 @@ html.dark-theme {
     --border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Mobile-first base styles */
 body {
     background: var(--bg-primary);
     color: var(--text-primary);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     padding: 20px;
     transition: background 0.3s ease, color 0.3s ease;
+    line-height: 1.4;
+    font-size: 16px; /* Base font size for mobile */
+}
+
+/* Safe area handling for iOS */
+body {
+    padding-top: calc(20px + var(--safe-area-top));
+    padding-bottom: calc(20px + var(--safe-area-bottom));
+    padding-left: calc(20px + var(--safe-area-left));
+    padding-right: calc(20px + var(--safe-area-right));
 }
 
 .main-container {
@@ -156,6 +169,31 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    min-height: calc(100vh - 40px);
+}
+
+/* Touch-friendly base styles */
+button, input, select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px; /* Prevent zoom on iOS */
+}
+
+/* Focus indicators for accessibility */
+button:focus, input:focus, select:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* High contrast focus */
+@media (prefers-contrast: high) {
+    button:focus, input:focus, select:focus {
+        outline: 3px solid #000;
+        outline-offset: 2px;
+    }
 }
 
 .header {
@@ -439,25 +477,643 @@ body {
 
 /* Remove the scrollbar styles since we're not scrolling the grid anymore */
 
-@media (max-width: 1200px) {
+/* Advanced Mobile-First Responsive Design */
+
+/* Extra Small Devices (Phones < 480px) */
+@media (max-width: 479px) {
+    :root {
+        --touch-target-min: 44px;
+        --touch-target-android: 48px;
+    }
+    
+    body {
+        padding: 16px;
+        padding-top: calc(16px + var(--safe-area-top));
+        padding-bottom: calc(16px + var(--safe-area-bottom));
+        padding-left: calc(16px + var(--safe-area-left));
+        padding-right: calc(16px + var(--safe-area-right));
+    }
+    
+    .header {
+        gap: 16px;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+    
+    .header-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        flex: 1;
+        min-width: 120px;
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+    
+    .number-format-select {
+        width: 100%;
+        max-width: 200px;
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+    
+    .calculators-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .calculator-wrapper {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .calculator-header h2 {
+        font-size: 14px;
+    }
+    
+    .close-calculator-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+    }
+    
+    .input-group input {
+        max-width: 100%;
+        font-size: 16px;
+    }
+    
+    .result {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    
+    .result span {
+        font-size: 14px;
+    }
+    
+    .theme-toggle {
+        top: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+        padding: 8px;
+        font-size: 18px;
+    }
+    
+    /* Modal optimizations for small screens */
+    .modal-content {
+        max-width: 95vw;
+        margin: 10px;
+    }
+    
+    .modal-header h2 {
+        font-size: 20px;
+    }
+    
+    .modal-search {
+        font-size: 16px;
+    }
+}
+
+/* Small Devices (Phones 480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+    :root {
+        --touch-target-min: 44px;
+    }
+    
+    body {
+        padding: 18px;
+        padding-top: calc(18px + var(--safe-area-top));
+        padding-bottom: calc(18px + var(--safe-area-bottom));
+        padding-left: calc(18px + var(--safe-area-left));
+        padding-right: calc(18px + var(--safe-area-right));
+    }
+    
+    .header h1 {
+        font-size: 28px;
+    }
+    
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        padding: 16px 20px;
+        font-size: 16px;
+    }
+    
+    .number-format-select {
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+    
+    .calculators-grid {
+        gap: 18px;
+    }
+    
+    .calculator-wrapper {
+        padding: 18px;
+    }
+    
+    .input-group input {
+        font-size: 16px;
+    }
+}
+
+/* Medium Devices (Tablets 768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    :root {
+        --touch-target-min: 44px;
+    }
+    
+    body {
+        padding: 20px;
+        padding-top: calc(20px + var(--safe-area-top));
+        padding-bottom: calc(20px + var(--safe-area-bottom));
+        padding-left: calc(20px + var(--safe-area-left));
+        padding-right: calc(20px + var(--safe-area-right));
+    }
+    
+    .header h1 {
+        font-size: 32px;
+    }
+    
+    .header-buttons {
+        gap: 12px;
+    }
+    
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+    
+    .number-format-select {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+    
+    .calculators-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .calculator-wrapper {
+        padding: 20px;
+    }
+    
+    .input-group input {
+        font-size: 14px;
+    }
+    
+    .theme-toggle {
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Large Devices (Desktops 1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .calculators-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+    
+    .calculator-wrapper {
+        padding: 22px;
+    }
+    
+    .input-group input {
+        font-size: 14px;
+    }
+}
+
+/* Extra Large Devices (Large Desktops 1200px+) */
+@media (min-width: 1200px) {
+    .calculators-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+    
+    .calculator-wrapper {
+        padding: 24px;
+    }
+    
+    .input-group input {
+        font-size: 14px;
+    }
+    
+    .theme-toggle {
+        top: 24px;
+        right: 24px;
+    }
+}
+
+/* Ultra Wide Screens */
+@media (min-width: 1600px) {
+    .main-container {
+        max-width: 1600px;
+    }
+    
+    .calculators-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+    }
+}
+
+/* High DPI/Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .box-shadow {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Orientation-specific styles */
+@media (orientation: landscape) {
+    .header {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .header h1 {
+        font-size: 32px;
+    }
+}
+
+@media (orientation: portrait) {
+    .header h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+    
+    .header-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Touch device specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets for touch devices */
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        min-height: 48px;
+        padding: 16px 24px;
+    }
+    
+    .number-format-select {
+        min-height: 48px;
+        padding: 16px;
+    }
+    
+    .close-calculator-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Reduce animations for better performance on touch devices */
+    * {
+        transition: none !important;
+    }
+}
+
+/* Pointer fine (mouse) devices */
+@media (hover: hover) and (pointer: fine) {
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        transition: all 0.3s ease;
+    }
+    
+    .add-calculator-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    .theme-toggle:hover {
+        transform: scale(1.1);
+    }
+}
+
+/* Cross-browser compatibility fixes */
+.calculators-grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Fallback for older browsers without grid support */
+@supports not (display: grid) {
+    .calculators-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .calculator-wrapper {
+        flex: 1 1 calc(33.333% - 20px);
+        min-width: 300px;
+    }
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .theme-toggle {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+}
+
+/* Android specific optimizations */
+@supports (-webkit-appearance: none) {
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+/* Microsoft Edge compatibility */
+@supports (-ms-ime-align: auto) {
+    .calculators-grid {
+        display: -ms-grid;
+        -ms-grid-columns: 1fr 20px 1fr 20px 1fr;
+    }
+}
+
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+    .theme-toggle {
+        transform: scale(1);
+    }
+}
+
+/* Mobile-specific UX and Performance Enhancements */
+
+/* Touch scrolling optimization */
+.calculators-grid {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+/* Prevent zoom on form inputs */
+input[type="number"], input[type="text"], select {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Mobile keyboard optimizations */
+input[type="number"] {
+    inputmode: numeric;
+    pattern: "[0-9]*";
+}
+
+input[type="text"] {
+    inputmode: text;
+}
+
+/* Performance optimizations for mobile */
+.calculator-wrapper {
+    will-change: transform, box-shadow;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.theme-toggle {
+    will-change: transform, background-color;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Hardware acceleration for animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(10px);
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes tooltipIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(-50%) translateY(-10px);
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(-50%) translateY(0);
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Mobile gesture optimizations */
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Prevent accidental zoom on double-tap */
+.calculator-wrapper {
+    touch-action: manipulation;
+}
+
+/* Smooth scrolling for mobile */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Mobile-specific accessibility improvements */
+@media (max-width: 768px) {
+    /* Increase contrast for small screens */
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        border: 2px solid var(--accent-primary);
+    }
+    
+    /* Better spacing for touch */
+    .input-group {
+        margin-bottom: 16px;
+    }
+    
+    /* Larger result display */
+    .result {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+    
+    .result span {
+        font-size: 18px;
+    }
+    
+    /* Improve modal accessibility */
+    .modal-search {
+        font-size: 18px;
+    }
+    
+    .calculator-card {
+        min-height: 60px;
+    }
+}
+
+/* Battery saver mode detection */
+@media (prefers-reduced-data: reduce) {
+    /* Reduce animations and effects for better performance */
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        box-shadow: none !important;
+    }
+    
+    .theme-toggle {
+        box-shadow: none;
+    }
+    
+    .calculator-wrapper {
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
+}
+
+/* Dark theme specific mobile optimizations */
+@media (prefers-color-scheme: dark) {
+    /* Reduce brightness for OLED screens */
+    .theme-toggle {
+        background-color: rgba(30, 30, 46, 0.8);
+    }
+    
+    /* Better contrast on dark backgrounds */
+    .add-calculator-btn {
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+    }
+}
+
+/* Light theme specific mobile optimizations */
+@media (prefers-color-scheme: light) {
+    /* Reduce glare on bright screens */
+    .theme-toggle {
+        background-color: rgba(245, 245, 245, 0.9);
+    }
+    
+    /* Better contrast on light backgrounds */
+    .add-calculator-btn {
+        box-shadow: 0 4px 15px rgba(0, 153, 255, 0.2);
+    }
+}
+
+/* High refresh rate display optimization */
+@media (min-resolution: 2dppx) {
+    .theme-toggle {
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Mobile viewport units for better scaling */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: clamp(20px, 5vw, 32px);
+    }
+    
+    .calculator-header h2 {
+        font-size: clamp(12px, 3vw, 16px);
+    }
+    
+    .result {
+        font-size: clamp(12px, 3.5vw, 16px);
+    }
+    
+    .result span {
+        font-size: clamp(14px, 4vw, 18px);
+    }
+}
+
+/* Network-aware loading */
+@media (max-width: 480px) {
+    /* Reduce visual complexity on slower connections */
+    .calculator-wrapper {
+        background: var(--input-bg);
+        border: 1px solid var(--border-color);
+    }
+    
+    .add-calculator-btn, .reset-all-btn, .view-all-btn {
+        background: var(--accent-primary);
+        border: none;
+    }
+}
+
+/* Orientation change handling */
+@media (orientation: landscape) {
     .calculators-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 768px) {
+@media (orientation: portrait) {
     .calculators-grid {
         grid-template-columns: 1fr;
     }
-    
-    .header {
-        flex-direction: column;
-        align-items: stretch;
+}
+
+/* Mobile-specific focus management */
+@media (max-width: 768px) {
+    input:focus, select:focus {
+        background-color: var(--input-bg);
+        border-color: var(--accent-primary);
     }
     
-    .add-calculator-btn {
-        width: 100%;
+    /* Prevent zoom on focus */
+    input, select {
+        font-size: 16px;
     }
+}
+
+/* Touch target validation */
+.calculator-card-btn, .add-calculator-btn, .reset-all-btn, .view-all-btn {
+    min-height: var(--touch-target-android);
+    min-width: var(--touch-target-android);
+}
+
+.close-calculator-btn {
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+/* Mobile-specific error states */
+input:invalid {
+    border-color: #ff4444;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+}
+
+/* Loading states for mobile */
+.calculator-wrapper.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.calculator-wrapper.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
 }
 
 .container {
