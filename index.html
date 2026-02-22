@@ -31,7 +31,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
 </head>
 <body>
-    <script src="js/script.js"></script>
+    <!-- Modular JavaScript files - load in correct order -->
+    <script src="js/utils.js"></script>
+    <script src="js/calculator-data.js"></script>
+    <script src="js/calculator-html.js"></script>
+    <script src="js/calculator-manager.js"></script>
+    <script src="js/calculators.js"></script>
 
     <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
         <span id="themeIcon">🌙</span>
