@@ -1,5 +1,36 @@
 // ==================== CALCULATOR MANAGER ====================
 
+// Download chart as image
+function downloadChart(chartId) {
+    const canvas = document.getElementById(chartId);
+    if (!canvas) return;
+    
+    const link = document.createElement('a');
+    link.download = chartId + '_chart.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+// Copy result to clipboard
+function copyResult(elementId, btn) {
+    const text = document.getElementById(elementId).innerText;
+    if (!text || text === '0') return;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        const button = btn || event.target;
+        const originalText = button.innerText;
+        button.innerText = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.classList.remove('copied');
+        }, 1500);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
+
 // Filter calculators based on search input
 function filterCalculators(id) {
     const searchInput = document.getElementById(`search-${id}`);
@@ -40,7 +71,9 @@ function filterCalculators(id) {
         for (const [category, items] of Object.entries(grouped)) {
             html += `<div class="search-result-category">${category}</div>`;
             items.forEach(item => {
-                html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name}</div>`;
+                const hasViz = calculatorsWithCharts.includes(item.key);
+                const vizBadge = hasViz ? '<span class="viz-badge">VIZ</span>' : '';
+                html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name} ${vizBadge}</div>`;
             });
         }
     }
@@ -73,7 +106,9 @@ function showAllCalculators(id) {
     for (const [category, items] of Object.entries(grouped)) {
         html += `<div class="search-result-category">${category}</div>`;
         items.forEach(item => {
-            html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name}</div>`;
+            const hasViz = calculatorsWithCharts.includes(item.key);
+            const vizBadge = hasViz ? '<span class="viz-badge">VIZ</span>' : '';
+            html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name} ${vizBadge}</div>`;
         });
     }
     
@@ -90,7 +125,9 @@ function selectCalculator(id, value, event) {
     
     // Set the select value and trigger change
     select.value = value;
-    searchInput.value = calculatorData[value].name;
+    const hasViz = calculatorsWithCharts.includes(value);
+    const vizBadge = hasViz ? ' (VIZ)' : '';
+    searchInput.value = calculatorData[value].name + vizBadge;
     resultsContainer.style.display = 'none';
     
     // Trigger the calculator switch
@@ -121,6 +158,9 @@ function closeCalculatorList() {
     document.getElementById('modalSearch').value = '';
 }
 
+// Calculators with chart visualizations
+const calculatorsWithCharts = ['sip', 'compound', 'investmentGoal', 'mortgageEmi', 'loanEmi', 'fireNumber', 'budgetAllocator', 'propertyRoi', 'yearsToFire'];
+
 // Populate calculator list in modal
 function populateCalculatorList() {
     const body = document.getElementById('calculatorListBody');
@@ -144,9 +184,11 @@ function populateCalculatorList() {
         `;
         
         calculators.forEach(calc => {
+            const hasViz = calculatorsWithCharts.includes(calc.key);
+            const vizBadge = hasViz ? '<span class="viz-badge">VIZ</span>' : '';
             html += `
                 <div class="calculator-card" data-search-text="${calc.name.toLowerCase()} ${calc.terms.join(' ').toLowerCase()}">
-                    <div class="calculator-card-name">${calc.name}</div>
+                    <div class="calculator-card-name">${calc.name} ${vizBadge}</div>
                     <button class="calculator-card-btn" onclick="addCalculatorFromModal('${calc.key}')">Add</button>
                 </div>
             `;
@@ -358,7 +400,9 @@ function switchCalc(id) {
     
     // Update search input with selected calculator name
     if (calculatorData[selected]) {
-        searchInput.value = calculatorData[selected].name;
+        const hasViz = calculatorsWithCharts.includes(selected);
+        const vizBadge = hasViz ? ' (VIZ)' : '';
+        searchInput.value = calculatorData[selected].name + vizBadge;
     }
     
     // Hide search results
@@ -388,6 +432,47 @@ function handleEnter(event) {
             inputs[currentIndex + 1].focus();
         } else {
             currentInput.blur();
+        }
+    }
+}
+
+// Toggle chart visibility
+function toggleChart(id, calcType) {
+    const section = document.getElementById(`${calcType}ChartSection-${id}`);
+    const btn = document.getElementById(`${calcType}ChartBtn-${id}`);
+    
+    if (!section || !btn) return;
+    
+    if (section.classList.contains('visible')) {
+        section.classList.remove('visible');
+        btn.textContent = 'Show Chart';
+        btn.classList.remove('active');
+    } else {
+        section.classList.add('visible');
+        btn.textContent = 'Hide Chart';
+        btn.classList.add('active');
+        
+        // Trigger recalculation to ensure chart has data
+        if (calcType === 'sip') {
+            calcSIP(id);
+        } else if (calcType === 'compound') {
+            calcCompound(id);
+        } else if (calcType === 'investmentGoal') {
+            calcInvestmentGoal(id);
+        } else if (calcType === 'mortgage') {
+            calcMortgage(id);
+        } else if (calcType === 'loanEmi') {
+            calcLoanEmi(id);
+        } else if (calcType === 'fireNumber') {
+            calcFireNumber(id);
+        } else if (calcType === 'budgetAllocator') {
+            calcBudgetAllocator(id);
+        } else if (calcType === 'propertyRoi') {
+            calcPropertyRoi(id);
+        } else if (calcType === 'yearsToFire') {
+            calcYearsToFire(id);
+        } else if (calcType === 'cagr') {
+            calcCAGR(id);
         }
     }
 }

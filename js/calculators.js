@@ -94,6 +94,119 @@ function calcSIP(id) {
     document.getElementById(`rTotalInvested-${id}`).innerText = formatNumber(totalInvested);
     document.getElementById(`rFutureValue-${id}`).innerText = formatNumber(totalFutureValue);
     document.getElementById(`rGains-${id}`).innerText = formatNumber(gains);
+    
+    // Update chart
+    updateSIPChart(id, currentCorpus, monthlySIP, annualReturn, years);
+}
+
+// SIP Chart update function
+function updateSIPChart(id, currentCorpus, monthlySIP, annualReturn, years) {
+    const canvas = document.getElementById(`sipChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const monthlyReturn = annualReturn / 100 / 12;
+    
+    // Generate year-by-year data
+    const labels = [];
+    const investedData = [];
+    const valueData = [];
+    
+    for (let year = 0; year <= years; year++) {
+        labels.push(`Year ${year}`);
+        const months = year * 12;
+        
+        const invested = currentCorpus + (monthlySIP * months);
+        const fvCorpus = currentCorpus * Math.pow(1 + monthlyReturn, months);
+        let fvSIP = 0;
+        if (monthlyReturn === 0) {
+            fvSIP = monthlySIP * months;
+        } else {
+            fvSIP = monthlySIP * (Math.pow(1 + monthlyReturn, months) - 1) / monthlyReturn;
+        }
+        const totalValue = fvCorpus + fvSIP;
+        
+        investedData.push(invested);
+        valueData.push(totalValue);
+    }
+    
+    // Destroy existing chart if it exists
+    if (window[`sipChart_${id}`]) {
+        window[`sipChart_${id}`].destroy();
+    }
+    
+    // Create new chart
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    window[`sipChart_${id}`] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Total Value',
+                    data: valueData,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Invested Amount',
+                    data: investedData,
+                    borderColor: '#64748b',
+                    backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + formatNumber(context.raw);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: gridColor
+                    },
+                    ticks: {
+                        color: textColor,
+                        maxTicksLimit: 6
+                    }
+                },
+                y: {
+                    grid: {
+                        color: gridColor
+                    },
+                    ticks: {
+                        color: textColor,
+                        callback: function(value) {
+                            return formatNumber(value);
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate FIRE Number
@@ -113,6 +226,56 @@ function calcFireNumber(id) {
     
     document.getElementById(`rFireExpenses-${id}`).innerText = formatNumber(annualExpenses);
     document.getElementById(`rFireNumber-${id}`).innerText = formatNumber(fireNumber);
+    
+    // Update chart
+    updateFireNumberChart(id, annualExpenses, fireNumber);
+}
+
+// FIRE Number Chart (shows expense breakdown)
+function updateFireNumberChart(id, expenses, fireNumber) {
+    const canvas = document.getElementById(`fireNumberChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    if (window[`fireNumberChart_${id}`]) {
+        window[`fireNumberChart_${id}`].destroy();
+    }
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    // If fireNumber is 0, show placeholder
+    if (fireNumber === 0) {
+        return;
+    }
+    
+    window[`fireNumberChart_${id}`] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Annual Expenses', 'Annual Savings'],
+            datasets: [{
+                data: [expenses, expenses > 0 ? ((fireNumber * 0.04) - expenses) : 0],
+                backgroundColor: ['#2563eb', '#10b981'],
+                borderColor: ['#1d4ed8', '#059669'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate Years to FIRE
@@ -137,6 +300,97 @@ function calcYearsToFire(id) {
     }
     
     document.getElementById(`rYearsToFire-${id}`).innerText = years >= 1000 ? 'Not achievable' : years.toFixed(1);
+    
+    // Update chart
+    updateYearsToFireChart(id, current, annual, target, returnRate, years);
+}
+
+// Years to FIRE Chart
+function updateYearsToFireChart(id, current, annual, target, returnRate, years) {
+    const canvas = document.getElementById(`yearsToFireChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    if (window[`yearsToFireChart_${id}`]) {
+        window[`yearsToFireChart_${id}`].destroy();
+    }
+    
+    if (current === 0 || annual === 0 || target === 0) return;
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    const labels = [];
+    const data = [];
+    const targetLine = [];
+    
+    const r = returnRate / 100;
+    let fv = current;
+    const maxYears = Math.min(Math.ceil(years * 1.5), 50);
+    
+    for (let year = 0; year <= maxYears; year++) {
+        labels.push(`Year ${year}`);
+        data.push(fv);
+        targetLine.push(target);
+        
+        if (year < maxYears) {
+            fv = fv * (1 + r) + annual;
+        }
+    }
+    
+    window[`yearsToFireChart_${id}`] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Projected Savings',
+                    data: data,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'FIRE Target',
+                    data: targetLine,
+                    borderColor: '#10b981',
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, maxTicksLimit: 8 }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: textColor,
+                        callback: function(value) { return formatNumber(value); }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate FatFIRE
@@ -215,6 +469,90 @@ function calcCompound(id) {
     
     document.getElementById(`rCompoundAmount-${id}`).innerText = formatNumber(amount);
     document.getElementById(`rCompoundInterest-${id}`).innerText = formatNumber(interest);
+    
+    // Update chart
+    updateCompoundChart(id, principal, rate, years);
+}
+
+// Compound Interest Chart
+function updateCompoundChart(id, principal, rate, years) {
+    const canvas = document.getElementById(`compoundChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    const labels = [];
+    const principalData = [];
+    const amountData = [];
+    
+    for (let year = 0; year <= years; year++) {
+        labels.push(`Year ${year}`);
+        const currentPrincipal = principal;
+        const currentAmount = principal * Math.pow(1 + rate / 100, year);
+        
+        principalData.push(currentPrincipal);
+        amountData.push(currentAmount);
+    }
+    
+    if (window[`compoundChart_${id}`]) {
+        window[`compoundChart_${id}`].destroy();
+    }
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    window[`compoundChart_${id}`] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Total Value',
+                    data: amountData,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Principal',
+                    data: principalData,
+                    borderColor: '#64748b',
+                    backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, maxTicksLimit: 6 }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: textColor,
+                        callback: function(value) { return formatNumber(value); }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate Investment Goal
@@ -239,6 +577,97 @@ function calcInvestmentGoal(id) {
     }
     
     document.getElementById(`rInvestmentGoal-${id}`).innerText = formatNumber(emi);
+    
+    // Update chart
+    updateInvestmentGoalChart(id, emi, returnRate, years, target);
+}
+
+// Investment Goal Chart
+function updateInvestmentGoalChart(id, monthlyEMI, returnRate, years, target) {
+    const canvas = document.getElementById(`investmentGoalChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const monthlyRate = returnRate / 100 / 12;
+    
+    const labels = [];
+    const savedData = [];
+    const targetData = [];
+    
+    for (let year = 0; year <= years; year++) {
+        labels.push(`Year ${year}`);
+        const months = year * 12;
+        let accumulated = 0;
+        
+        if (monthlyRate === 0) {
+            accumulated = monthlyEMI * months;
+        } else {
+            accumulated = monthlyEMI * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+        }
+        
+        savedData.push(accumulated);
+        targetData.push(target);
+    }
+    
+    if (window[`investmentGoalChart_${id}`]) {
+        window[`investmentGoalChart_${id}`].destroy();
+    }
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    window[`investmentGoalChart_${id}`] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Savings Progress',
+                    data: savedData,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Target Goal',
+                    data: targetData,
+                    borderColor: '#10b981',
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, maxTicksLimit: 6 }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: textColor,
+                        callback: function(value) { return formatNumber(value); }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate Cost of Delay
@@ -299,6 +728,55 @@ function calcLoanEmi(id) {
     
     document.getElementById(`rLoanEmi-${id}`).innerText = formatNumber(emi);
     document.getElementById(`rLoanInterest-${id}`).innerText = formatNumber(totalInterest);
+    
+    // Update chart (reuse mortgage chart function for consistency but with correct canvas)
+    const canvas = document.getElementById(`loanEmiChart-${id}`);
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        
+        if (window[`loanEmiChart_${id}`]) {
+            window[`loanEmiChart_${id}`].destroy();
+        }
+        
+        const isDark = document.documentElement.classList.contains('dark-theme');
+        const textColor = isDark ? '#94a3b8' : '#64748b';
+        
+        window[`loanEmiChart_${id}`] = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Principal', 'Total Interest'],
+                datasets: [{
+                    data: [principal, totalInterest],
+                    backgroundColor: ['#2563eb', '#f59e0b'],
+                    borderColor: ['#1d4ed8', '#d97706'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: textColor,
+                            usePointStyle: true,
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = principal + totalInterest;
+                                const percentage = ((context.raw / total) * 100).toFixed(1);
+                                return context.label + ': ' + formatNumber(context.raw) + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 }
 
 // Calculate Property ROI
@@ -318,6 +796,77 @@ function calcPropertyRoi(id) {
     
     document.getElementById(`rPropertyYield-${id}`).innerText = rentalYield.toFixed(2);
     document.getElementById(`rPropertyRoi-${id}`).innerText = totalReturn.toFixed(2);
+    
+    // Update chart
+    updatePropertyRoiChart(id, investment, annualRent, currentValue, rentalYield, totalReturn);
+}
+
+// Property ROI Chart (Bar Chart)
+function updatePropertyRoiChart(id, investment, annualRent, currentValue, rentalYield, totalROI) {
+    const canvas = document.getElementById(`propertyRoiChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    if (window[`propertyRoiChart_${id}`]) {
+        window[`propertyRoiChart_${id}`].destroy();
+    }
+    
+    if (investment === 0) return;
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    // Calculate appreciation
+    const appreciation = currentValue - investment;
+    const appreciationPercent = (appreciation / investment) * 100;
+    
+    window[`propertyRoiChart_${id}`] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Rental Yield', 'Appreciation', 'Total ROI'],
+            datasets: [{
+                label: 'Returns (%)',
+                data: [rentalYield, appreciationPercent, totalROI],
+                backgroundColor: ['#2563eb', '#10b981', '#f59e0b'],
+                borderColor: ['#1d4ed8', '#059669', '#d97706'],
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y.toFixed(2) + '%';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: textColor }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: textColor,
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate Mortgage
@@ -350,6 +899,61 @@ function calcMortgage(id) {
     document.getElementById(`rMortgageLoan-${id}`).innerText = formatNumber(loanAmount);
     document.getElementById(`rMortgageEmi-${id}`).innerText = formatNumber(emi);
     document.getElementById(`rMortgageInterest-${id}`).innerText = formatNumber(totalInterest);
+    
+    // Update chart
+    updateMortgageChart(id, loanAmount, totalInterest);
+}
+
+// Mortgage Chart (Doughnut chart showing Principal vs Interest)
+function updateMortgageChart(id, principal, totalInterest, canvasId) {
+    const canvas = canvasId ? document.getElementById(canvasId + id) : document.getElementById(`mortgageChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const chartKey = (canvasId || 'mortgage') + '_' + id;
+    
+    if (window[`chart_${chartKey}`]) {
+        window[`chart_${chartKey}`].destroy();
+    }
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    window[`chart_${chartKey}`] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Principal', 'Total Interest'],
+            datasets: [{
+                data: [principal, totalInterest],
+                backgroundColor: ['#2563eb', '#f59e0b'],
+                borderColor: ['#1d4ed8', '#d97706'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = principal + totalInterest;
+                            const percentage = ((context.raw / total) * 100).toFixed(1);
+                            return context.label + ': ' + formatNumber(context.raw) + ' (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Calculate Rule of 72
@@ -443,6 +1047,64 @@ function calcBudgetAllocator(id) {
     document.getElementById(`rBudgetWants-${id}`).innerText = formatNumber(wants);
     document.getElementById(`rBudgetSavings-${id}`).innerText = formatNumber(savings);
     document.getElementById(`rBudgetTotal-${id}`).innerText = totalPercent.toFixed(1);
+    
+    // Update chart
+    updateBudgetAllocatorChart(id, needs, wants, savings);
+}
+
+// Budget Allocator Chart (Pie Chart)
+function updateBudgetAllocatorChart(id, needs, wants, savings) {
+    const canvas = document.getElementById(`budgetAllocatorChart-${id}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    if (window[`budgetAllocatorChart_${id}`]) {
+        window[`budgetAllocatorChart_${id}`].destroy();
+    }
+    
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    
+    if (needs === 0 && wants === 0 && savings === 0) {
+        return;
+    }
+    
+    window[`budgetAllocatorChart_${id}`] = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Needs', 'Wants', 'Savings'],
+            datasets: [{
+                data: [needs, wants, savings],
+                backgroundColor: ['#2563eb', '#f59e0b', '#10b981'],
+                borderColor: ['#1d4ed8', '#d97706', '#059669'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: textColor,
+                        usePointStyle: true,
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = needs + wants + savings;
+                            const percentage = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
+                            return context.label + ': ' + formatNumber(context.raw) + ' (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Additional calculator functions can be added here...

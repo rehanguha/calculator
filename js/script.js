@@ -5,6 +5,9 @@ let activeCalculators = new Set();
 const maxCalculators = 3;
 let numberFormat = 'million'; // Default format
 
+// Calculators with chart visualizations
+const calculatorsWithCharts = ['sip', 'compound', 'investmentGoal', 'mortgageEmi', 'loanEmi', 'fireNumber', 'budgetAllocator', 'propertyRoi', 'yearsToFire'];
+
 // Initialize theme on page load
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');
@@ -217,7 +220,9 @@ function filterCalculators(id) {
         for (const [category, items] of Object.entries(grouped)) {
             html += `<div class="search-result-category">${category}</div>`;
             items.forEach(item => {
-                html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name}</div>`;
+                const hasViz = calculatorsWithCharts.includes(item.key);
+                const vizBadge = hasViz ? '<span class="viz-badge">VIZ</span>' : '';
+                html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name} ${vizBadge}</div>`;
             });
         }
     }
@@ -250,7 +255,9 @@ function showAllCalculators(id) {
     for (const [category, items] of Object.entries(grouped)) {
         html += `<div class="search-result-category">${category}</div>`;
         items.forEach(item => {
-            html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name}</div>`;
+            const hasViz = calculatorsWithCharts.includes(item.key);
+            const vizBadge = hasViz ? '<span class="viz-badge">VIZ</span>' : '';
+            html += `<div class="search-result-item" onclick="selectCalculator(${id}, '${item.key}', event)">${item.name} ${vizBadge}</div>`;
         });
     }
     
@@ -267,7 +274,9 @@ function selectCalculator(id, value, event) {
     
     // Set the select value and trigger change
     select.value = value;
-    searchInput.value = calculatorData[value].name;
+    const hasViz = calculatorsWithCharts.includes(value);
+    const vizBadge = hasViz ? ' (VIZ)' : '';
+    searchInput.value = calculatorData[value].name + vizBadge;
     resultsContainer.style.display = 'none';
     
     // Trigger the calculator switch
@@ -2771,7 +2780,9 @@ function switchCalc(id) {
     
     // Update search input with selected calculator name
     if (calculatorData[selected]) {
-        searchInput.value = calculatorData[selected].name;
+        const hasViz = calculatorsWithCharts.includes(selected);
+        const vizBadge = hasViz ? ' (VIZ)' : '';
+        searchInput.value = calculatorData[selected].name + vizBadge;
     }
     
     // Hide search results

@@ -2,13 +2,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#00d4ff">
+    <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Calculator Collection">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-TileColor" content="#00d4ff">
+    <meta name="msapplication-TileColor" content="#2563eb">
     <meta name="msapplication-tap-highlight" content="no">
     
     <!-- iOS Safari specific settings -->
@@ -24,6 +24,7 @@
     
     <title>Calculator Collection</title>
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!-- Touch icons for iOS -->
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
@@ -39,23 +40,28 @@
     <script src="js/calculators.js"></script>
 
     <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span>
+        <span id="themeIcon">○</span>
     </div>
 
     <div class="main-container">
         <div class="header">
-            <h1>Calculator Collection</h1>
+            <div class="brand">
+                <div class="logo">C</div>
+                <h1>Calculator<br>Collection</h1>
+            </div>
             <div class="header-buttons">
                 <select id="numberFormat" class="number-format-select" onchange="changeNumberFormat(this.value)">
                     <option value="plain">Plain</option>
                     <option value="million">Millions (1,000,000)</option>
                     <option value="indian">Indian (10,00,000)</option>
                 </select>
-                <button class="view-all-btn" onclick="openCalculatorList()">📋 View All</button>
-                <button class="add-calculator-btn" onclick="addCalculator()" id="addCalcBtn">+ Add</button>
+                <button class="view-all-btn" onclick="openCalculatorList()">View All</button>
+                <button class="add-calculator-btn" onclick="addCalculator()" id="addCalcBtn">Add</button>
                 <button class="reset-all-btn" onclick="resetAllCalculators()">Reset All</button>
             </div>
         </div>
+        
+        <div class="header-separator"></div>
 
         <!-- Modal for viewing all calculators -->
         <div id="calculatorListModal" class="modal" style="display: none;">

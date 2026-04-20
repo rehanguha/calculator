@@ -12,20 +12,24 @@
 /* CSS Variables for consistent theming */
 :root {
     color-scheme: light dark;
-    --bg-primary: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
-    --bg-secondary: linear-gradient(135deg, #2d2d44 0%, #3a3a52 100%);
-    --text-primary: #e0e0e0;
-    --text-secondary: #888;
-    --input-bg: #1e1e2e;
-    --input-border: #404059;
-    --accent-primary: #00d4ff;
-    --accent-secondary: #0099ff;
-    --box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --border-color: rgba(255, 255, 255, 0.1);
+    --bg-primary: #f1f5f9;
+    --bg-secondary: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --accent-primary: #2563eb;
+    --accent-secondary: #1d4ed8;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --hover-bg: #f8fafc;
     
     /* Mobile-specific variables */
-    --touch-target-min: 44px; /* Apple minimum touch target */
-    --touch-target-android: 48px; /* Android minimum touch target */
+    --touch-target-min: 44px;
+    --touch-target-android: 48px;
     --safe-area-top: env(safe-area-inset-top, 0px);
     --safe-area-bottom: env(safe-area-inset-bottom, 0px);
     --safe-area-left: env(safe-area-inset-left, 0px);
@@ -88,57 +92,63 @@
 
 :root {
     color-scheme: light dark;
-    --bg-primary: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
-    --bg-secondary: linear-gradient(135deg, #2d2d44 0%, #3a3a52 100%);
-    --text-primary: #e0e0e0;
-    --text-secondary: #888;
-    --input-bg: #1e1e2e;
-    --input-border: #404059;
-    --accent-primary: #00d4ff;
-    --accent-secondary: #0099ff;
-    --box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --border-color: rgba(255, 255, 255, 0.1);
+    --bg-primary: #f1f5f9;
+    --bg-secondary: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --accent-primary: #2563eb;
+    --accent-secondary: #1d4ed8;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --hover-bg: #f8fafc;
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        --bg-primary: linear-gradient(135deg, #f5f5f5 0%, #e8e8f0 100%);
-        --bg-secondary: linear-gradient(135deg, #ffffff 0%, #f0f0f8 100%);
-        --text-primary: #2a2a2a;
-        --text-secondary: #666;
+        --bg-primary: #f1f5f9;
+        --bg-secondary: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
         --input-bg: #ffffff;
-        --input-border: #d0d0d8;
-        --accent-primary: #0099ff;
-        --accent-secondary: #006acc;
-        --box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        --border-color: rgba(0, 0, 0, 0.1);
+        --input-border: #e2e8f0;
+        --accent-primary: #2563eb;
+        --accent-secondary: #1d4ed8;
+        --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+        --border-color: #e2e8f0;
     }
 }
 
 html.light-theme {
-    --bg-primary: linear-gradient(135deg, #f5f5f5 0%, #e8e8f0 100%);
-    --bg-secondary: linear-gradient(135deg, #ffffff 0%, #f0f0f8 100%);
-    --text-primary: #2a2a2a;
-    --text-secondary: #666;
+    --bg-primary: #f1f5f9;
+    --bg-secondary: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
     --input-bg: #ffffff;
-    --input-border: #d0d0d8;
-    --accent-primary: #0099ff;
-    --accent-secondary: #006acc;
-    --box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    --border-color: rgba(0, 0, 0, 0.1);
+    --input-border: #e2e8f0;
+    --accent-primary: #2563eb;
+    --accent-secondary: #1d4ed8;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --border-color: #e2e8f0;
+    --hover-bg: #f8fafc;
 }
 
 html.dark-theme {
-    --bg-primary: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
-    --bg-secondary: linear-gradient(135deg, #2d2d44 0%, #3a3a52 100%);
-    --text-primary: #e0e0e0;
-    --text-secondary: #888;
-    --input-bg: #1e1e2e;
-    --input-border: #404059;
-    --accent-primary: #00d4ff;
-    --accent-secondary: #0099ff;
-    --box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --border-color: rgba(255, 255, 255, 0.1);
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --input-bg: #334155;
+    --input-border: #475569;
+    --accent-primary: #3b82f6;
+    --accent-secondary: #2563eb;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+    --border-color: #475569;
+    --hover-bg: #334155;
 }
 
 /* Mobile-first base styles */
@@ -186,6 +196,7 @@ button, input, select {
 button:focus, input:focus, select:focus {
     outline: 2px solid var(--accent-primary);
     outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 /* High contrast focus */
@@ -203,6 +214,21 @@ button:focus, input:focus, select:focus {
     margin-bottom: 30px;
     flex-wrap: wrap;
     gap: 20px;
+    width: 100%;
+}
+
+.header-separator {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        var(--accent-primary) 0%, 
+        var(--accent-secondary) 50%, 
+        var(--accent-primary) 100%
+    );
+    opacity: 0.3;
+    margin-top: -15px;
+    margin-bottom: 24px;
+    border-radius: 1px;
 }
 
 .header-buttons {
@@ -211,13 +237,64 @@ button:focus, input:focus, select:focus {
     flex-wrap: wrap;
 }
 
-.header h1 {
-    font-size: 32px;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo::before {
+    content: "$";
+    font-family: 'Courier New', monospace;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
     margin: 0;
+    line-height: 1.2;
+    background: none;
+    -webkit-text-fill-color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+    .brand {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .logo {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .header h1 {
+        font-size: 18px;
+        text-align: center;
+    }
 }
 
 .add-calculator-btn, .reset-all-btn, .number-format-select {
@@ -233,34 +310,28 @@ button:focus, input:focus, select:focus {
 .number-format-select {
     background-color: var(--input-bg);
     color: var(--text-primary);
-    border: 2px solid var(--input-border);
+    border: 1px solid var(--input-border);
 }
 
-.number-format-select:hover {
-    border-color: var(--accent-primary);
-    box-shadow: 0 4px 15px var(--accent-primary);
-}
-
-.add-calculator-btn, .reset-all-btn {
+.add-calculator-btn, .reset-all-btn, .view-all-btn, .number-format-select {
     padding: 12px 24px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .add-calculator-btn {
     background-color: var(--accent-primary);
     color: var(--input-bg);
-    box-shadow: 0 4px 15px var(--accent-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .add-calculator-btn:hover {
     background-color: var(--accent-secondary);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--accent-secondary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .add-calculator-btn:disabled {
@@ -270,9 +341,9 @@ button:focus, input:focus, select:focus {
 }
 
 .reset-all-btn {
-    background-color: #ff6b6b;
+    background-color: var(--error-color);
     color: white;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .reset-all-btn:hover {
@@ -282,22 +353,21 @@ button:focus, input:focus, select:focus {
 }
 
 .view-all-btn {
-    background-color: #7c3aed;
+    background-color: #6366f1;
     color: white;
     padding: 12px 24px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .view-all-btn:hover {
-    background-color: #6d28d9;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    background-color: #4f46e5;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Modal Styles */
@@ -420,15 +490,42 @@ button:focus, input:focus, select:focus {
 
 .calculator-card:hover {
     border-color: var(--accent-primary);
-    background-color: rgba(0, 212, 255, 0.05);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+    background-color: var(--hover-bg);
 }
 
 .calculator-card-name {
     font-weight: 600;
     color: var(--text-primary);
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.calculator-card-name .viz-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 5px;
+    background-color: var(--accent-primary);
+    color: white;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.section-viz-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    background-color: var(--accent-primary);
+    color: white;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 8px;
+    vertical-align: middle;
 }
 
 .calculator-card-btn {
@@ -462,9 +559,8 @@ button:focus, input:focus, select:focus {
 }
 
 .reset-all-btn:hover {
-    background-color: #ff5252;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+    background-color: #dc2626;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .calculators-grid {
@@ -1125,28 +1221,31 @@ input:invalid {
     top: 20px;
     right: 20px;
     background-color: var(--input-bg);
-    border: 2px solid var(--accent-primary);
+    border: 1px solid var(--input-border);
     color: var(--text-primary);
-    padding: 10px 15px;
-    border-radius: 25px;
+    padding: 10px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 20px;
-    transition: all 0.3s ease;
+    font-size: 18px;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
     z-index: 1000;
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
 }
 
 .theme-toggle:hover {
     border-color: var(--accent-secondary);
-    box-shadow: 0 4px 20px var(--accent-primary);
-    transform: scale(1.1);
-    background-color: var(--accent-primary);
-    color: var(--input-bg);
+    box-shadow: var(--box-shadow);
+    background-color: var(--hover-bg);
+}
+
+.theme-toggle:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
 }
 
 .theme-toggle:active {
@@ -1155,52 +1254,56 @@ input:invalid {
 
 .calculator-wrapper {
     background: var(--bg-secondary);
-    border-radius: 15px;
-    padding: 20px 18px;
-    box-shadow: var(--box-shadow), inset 0 1px 0 var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: var(--box-shadow);
     border: 1px solid var(--border-color);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
 }
 
 .calculator-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
     position: relative;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .calculator-header h2 {
     margin: 0;
-    flex: 1;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.25px;
 }
 
 .close-calculator-btn {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -8px;
+    right: -8px;
     background-color: transparent;
-    color: var(--text-primary);
-    border: 2px solid var(--accent-primary);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    color: var(--text-secondary);
+    border: 1px solid var(--input-border);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .close-calculator-btn:hover {
-    background-color: var(--accent-primary);
-    color: var(--input-bg);
-    transform: rotate(90deg);
+    background-color: #f8fafc;
+    color: var(--text-primary);
+    border-color: var(--input-border);
 }
 
 .reset-calculator-btn {
@@ -1324,6 +1427,23 @@ h2 {
     color: var(--input-bg);
 }
 
+.search-result-item:hover .viz-badge {
+    background-color: var(--input-bg);
+    color: var(--accent-primary);
+}
+
+.search-result-item .viz-badge {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
 .search-result-item:last-child {
     border-bottom: none;
 }
@@ -1346,26 +1466,57 @@ h2 {
 
 .calculator-select {
     width: 100%;
-    padding: 8px 12px;
-    margin-bottom: 10px;
+    padding: 10px 12px;
     background-color: var(--input-bg);
     color: var(--text-primary);
-    border: 2px solid var(--accent-primary);
-    border-radius: 8px;
-    font-size: 13px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.calculator-select:hover {
-    border-color: var(--accent-secondary);
-    box-shadow: 0 0 15px var(--accent-primary);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
 }
 
 .calculator-select:focus {
     outline: none;
-    border-color: var(--accent-secondary);
-    box-shadow: 0 0 20px var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+}
+    margin-bottom: 16px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 36px;
+}
+
+.calculator-select:hover {
+    border-color: var(--input-border);
+}
+
+.calculator-select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+@media (max-width: 480px) {
+    .calculator-select {
+        padding: 12px 14px;
+        font-size: 15px;
+        min-height: 44px;
+    }
 }
 
 .calculator-section {
@@ -1535,21 +1686,21 @@ h2 {
 
 .input-group input {
     width: 100%;
-    max-width: 250px;
-    padding: 8px 12px;
-    font-size: 13px;
+    max-width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
     background-color: var(--input-bg);
     color: var(--text-primary);
-    border: 2px solid var(--input-border);
+    border: 1px solid var(--input-border);
     border-radius: 6px;
-    transition: all 0.3s ease;
-    margin-bottom: 3px;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
 }
 
 .input-group input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 15px var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
     background-color: var(--input-bg);
 }
 
@@ -1565,13 +1716,13 @@ h2 {
 
 .result {
     text-align: center;
-    padding: 12px 15px;
-    background-color: rgba(0, 212, 255, 0.1);
-    border: 2px solid var(--accent-primary);
-    border-radius: 8px;
-    font-size: 13px;
+    padding: 14px 16px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .result-group {
@@ -1586,6 +1737,359 @@ h2 {
 
 .result span {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-left: 4px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chart-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    margin-top: 12px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chart-toggle-btn .viz-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    background-color: var(--accent-primary);
+    color: white;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.chart-toggle-btn:hover {
+    border-color: var(--accent-primary);
+    background-color: var(--input-bg);
+}
+
+.chart-toggle-btn.active {
+    background-color: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+.chart-section {
+    display: none;
+}
+
+.chart-section.visible {
+    display: block;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 24px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 12px;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: fit-content;
+    padding: 0 12px;
+}
+
+.comparison-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.comparison-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.comparison-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.comparison-bar {
+    height: 20px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.comparison-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px 8px;
+    margin-left: 8px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+    background-color: var(--bg-secondary);
     color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.copy-btn.copied {
+    background-color: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
+}
+
+.result-with-copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 10px;
+    margin-left: 8px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+}
+
+.download-btn:hover {
+    background-color: var(--bg-secondary);
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.chart-header span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.chart-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.chart-actions button {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media print {
+    .chart-container {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        background: white;
+    }
+    
+    .chart-toggle-btn,
+    .download-btn,
+    .copy-btn,
+    .chart-actions {
+        display: none !important;
+    }
+    
+    .chart-section {
+        display: block !important;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-container {
+        height: 200px;
+        padding: 12px;
+        margin-top: 12px;
+        border-radius: 6px;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .chart-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .chart-container {
+        height: 220px;
+    }
+    
+    .chart-toggle-btn,
+    .download-btn,
+    .copy-btn {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+    
+    .calculator-card-name .viz-badge,
+    .section-viz-badge {
+        min-width: 28px;
+        min-height: 20px;
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    
+    .search-result-item {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+    
+    .search-result-item .viz-badge {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+    
+    .calculator-card {
+        padding: 14px;
+    }
+    
+    .calculator-card-name {
+        font-size: 15px;
+    }
+    
+    .calculator-card-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 16px;
+        margin: 10px;
+        max-height: 90vh;
+    }
+    
+    .modal-header h2 {
+        font-size: 18px;
+    }
+    
+    .calculator-grid-list {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .search-results {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    
+    .copy-btn {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+    
+    .result {
+        font-size: 13px;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .result span {
+        word-break: break-word;
+    }
 }

@@ -74,11 +74,11 @@ function applyTheme(theme) {
     if (theme === 'light') {
         html.classList.remove('dark-theme');
         html.classList.add('light-theme');
-        icon.textContent = '🌞';
+        icon.textContent = '○';
     } else {
         html.classList.remove('light-theme');
         html.classList.add('dark-theme');
-        icon.textContent = '🌙';
+        icon.textContent = '●';
     }
     
     localStorage.setItem('theme', theme);

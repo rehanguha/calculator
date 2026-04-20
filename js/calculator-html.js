@@ -21,24 +21,24 @@ function generateCalculatorHTML(id) {
                     <option value="breakeven">Breakeven Point</option>
                 </optgroup>
                 <optgroup label="Investment Planning">
-                    <option value="sip">SIP Calculator</option>
-                    <option value="compound">Compound Interest</option>
-                    <option value="investmentGoal">Investment Goal</option>
+                    <option value="sip">SIP Calculator (VIZ)</option>
+                    <option value="compound">Compound Interest (VIZ)</option>
+                    <option value="investmentGoal">Investment Goal (VIZ)</option>
                     <option value="costOfDelay">Cost of Delay</option>
                 </optgroup>
                 <optgroup label="FIRE & Retirement">
-                    <option value="fireNumber">FIRE Number</option>
-                    <option value="yearsToFire">Years to FIRE</option>
+                    <option value="fireNumber">FIRE Number (VIZ)</option>
+                    <option value="yearsToFire">Years to FIRE (VIZ)</option>
                     <option value="fatFire">FatFIRE Calculator</option>
                     <option value="leanFire">LeanFIRE Calculator</option>
                     <option value="retirementAge">Retirement Age</option>
                 </optgroup>
                 <optgroup label="Loans & Borrowing">
-                    <option value="loanEmi">Loan EMI Calculator</option>
+                    <option value="loanEmi">Loan EMI Calculator (VIZ)</option>
                 </optgroup>
                 <optgroup label="Real Estate">
-                    <option value="propertyRoi">Property Investment ROI</option>
-                    <option value="mortgageEmi">Mortgage/Home Loan</option>
+                    <option value="propertyRoi">Property Investment ROI (VIZ)</option>
+                    <option value="mortgageEmi">Mortgage/Home Loan (VIZ)</option>
                 </optgroup>
                 <optgroup label="Time & Growth">
                     <option value="rule72">Rule of 72</option>
@@ -50,7 +50,7 @@ function generateCalculatorHTML(id) {
                 <optgroup label="Budgeting & Savings">
                     <option value="emergencyFund">Emergency Fund Calculator</option>
                     <option value="monthlySavings">Monthly Savings Calculator</option>
-                    <option value="budgetAllocator">Budget Allocator</option>
+                    <option value="budgetAllocator">Budget Allocator (VIZ)</option>
                 </optgroup>
                 <optgroup label="Debt Management">
                     <option value="debtPayoff">Debt Payoff Calculator</option>
@@ -146,7 +146,7 @@ function generateCalculatorHTML(id) {
             <div id="avgStock-${id}" class="calculator-section">
                 <div class="section-header">
                     <h3>Average Stock Price</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'avgStock-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'avgStock-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="avgStock-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -167,14 +167,14 @@ function generateCalculatorHTML(id) {
                     <label for="newQty-${id}">Quantity to Buy</label>
                     <input type="number" id="newQty-${id}" placeholder="Quantity to Buy" oninput="calcAvgStock(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">New Average Price: <span id="rAvgStock-${id}">0</span></div>
+                <div class="result">New Average Price: <span id="rAvgStock-${id}">0</span><button class="copy-btn" onclick="copyResult('rAvgStock-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- REQUIRED QUANTITY & PRICE CALCULATOR -->
             <div id="requiredQty-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Required Quantity & Price</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'requiredQty-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'requiredQty-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="requiredQty-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -198,16 +198,16 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="newPriceReq-${id}" placeholder="New Purchase Price" step="0.01" oninput="calcRequiredQty(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Required Quantity: <span id="rRequiredQty-${id}">0</span></div>
-                    <div class="result">Total Price: <span id="rTotalPrice-${id}">0</span></div>
+                    <div class="result">Required Quantity: <span id="rRequiredQty-${id}">0</span><button class="copy-btn" onclick="copyResult('rRequiredQty-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Total Price: <span id="rTotalPrice-${id}">0</span><button class="copy-btn" onclick="copyResult('rTotalPrice-${id}', this)" title="Copy">📋</button></div>
                 </div>
             </div>
 
             <!-- SIP CALCULATOR -->
             <div id="sip-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>SIP Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'sip-tooltip-${id}')">ℹ️</span>
+                    <h3>SIP Calculator <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'sip-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="sip-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -233,17 +233,29 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="sipYears-${id}" placeholder="Number of Years" step="0.1" oninput="calcSIP(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Total Invested: <span id="rTotalInvested-${id}">0</span></div>
-                    <div class="result">Future Value: <span id="rFutureValue-${id}">0</span></div>
-                    <div class="result">Gains: <span id="rGains-${id}">0</span></div>
+                    <div class="result">Total Invested: <span id="rTotalInvested-${id}">0</span><button class="copy-btn" onclick="copyResult('rTotalInvested-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Future Value: <span id="rFutureValue-${id}">0</span><button class="copy-btn" onclick="copyResult('rFutureValue-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Gains: <span id="rGains-${id}">0</span><button class="copy-btn" onclick="copyResult('rGains-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'sip')" id="sipChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="sipChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Investment Growth Over Time</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('sipChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="sipChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
             <!-- FIRE NUMBER CALCULATOR -->
             <div id="fireNumber-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>FIRE Number Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'fireNumber-tooltip-${id}')">ℹ️</span>
+                    <h3>FIRE Number Calculator <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'fireNumber-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="fireNumber-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -265,16 +277,28 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="fireWithdrawal-${id}" placeholder="Withdrawal Rate %" value="4" step="0.01" oninput="calcFireNumber(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Annual Expenses: <span id="rFireExpenses-${id}">0</span></div>
-                    <div class="result">FIRE Number: <span id="rFireNumber-${id}">0</span></div>
+                    <div class="result">Annual Expenses: <span id="rFireExpenses-${id}">0</span><button class="copy-btn" onclick="copyResult('rFireExpenses-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">FIRE Number: <span id="rFireNumber-${id}">0</span><button class="copy-btn" onclick="copyResult('rFireNumber-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'fireNumber')" id="fireNumberChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="fireNumberChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Income Breakdown</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('fireNumberChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="fireNumberChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
             <!-- YEARS TO FIRE CALCULATOR -->
             <div id="yearsToFire-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Years to FIRE Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'yearsToFire-tooltip-${id}')">ℹ️</span>
+                    <h3>Years to FIRE Calculator <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'yearsToFire-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="yearsToFire-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -295,14 +319,26 @@ function generateCalculatorHTML(id) {
                     <label for="ytfReturn-${id}">Expected Annual Return (%)</label>
                     <input type="number" id="ytfReturn-${id}" placeholder="Annual Return %" value="10" step="0.01" oninput="calcYearsToFire(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Years to FIRE: <span id="rYearsToFire-${id}">0</span></div>
+                <div class="result">Years to FIRE: <span id="rYearsToFire-${id}">0</span><button class="copy-btn" onclick="copyResult('rYearsToFire-${id}', this)" title="Copy">📋</button></div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'yearsToFire')" id="yearsToFireChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="yearsToFireChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Wealth Timeline</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('yearsToFireChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="yearsToFireChart-${id}"></canvas>
+                    </div>
+                </div>
             </div>
 
             <!-- FATFIRE CALCULATOR -->
             <div id="fatFire-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>FatFIRE Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'fatFire-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'fatFire-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="fatFire-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -319,14 +355,14 @@ function generateCalculatorHTML(id) {
                     <label for="ffWithdrawal-${id}">Withdrawal Rate (%)</label>
                     <input type="number" id="ffWithdrawal-${id}" placeholder="Withdrawal Rate %" value="4" step="0.01" oninput="calcFatFire(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">FatFIRE Number: <span id="rFatFire-${id}">0</span></div>
+                <div class="result">FatFIRE Number: <span id="rFatFire-${id}">0</span><button class="copy-btn" onclick="copyResult('rFatFire-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- DIVIDEND CALCULATOR -->
             <div id="dividend-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Dividend Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'dividend-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'dividend-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="dividend-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -347,8 +383,8 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="divCurrentPrice-${id}" placeholder="Current Share Price" step="0.01" oninput="calcDividend(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Annual Dividend: <span id="rDividend-${id}">0</span></div>
-                    <div class="result">Dividend Yield: <span id="rDividendYield-${id}">0</span>%</div>
+                    <div class="result">Annual Dividend: <span id="rDividend-${id}">0</span><button class="copy-btn" onclick="copyResult('rDividend-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Dividend Yield: <span id="rDividendYield-${id}">0</span>%<button class="copy-btn" onclick="copyResult('rDividendYield-${id}', this)" title="Copy">📋</button></div>
                 </div>
             </div>
 
@@ -356,7 +392,7 @@ function generateCalculatorHTML(id) {
             <div id="breakeven-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Breakeven Point</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'breakeven-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'breakeven-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="breakeven-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -375,14 +411,14 @@ function generateCalculatorHTML(id) {
                     <label for="beBrokerage-${id}">Brokerage/Commission (₹)</label>
                     <input type="number" id="beBrokerage-${id}" placeholder="Brokerage" step="0.01" oninput="calcBreakeven(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Breakeven Price: <span id="rBreakeven-${id}">0</span></div>
+                <div class="result">Breakeven Price: <span id="rBreakeven-${id}">0</span><button class="copy-btn" onclick="copyResult('rBreakeven-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- COMPOUND INTEREST CALCULATOR -->
             <div id="compound-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Compound Interest</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'compound-tooltip-${id}')">ℹ️</span>
+                    <h3>Compound Interest <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'compound-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="compound-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -402,16 +438,28 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="cpYears-${id}" placeholder="Years" step="0.1" oninput="calcCompound(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Total Amount: <span id="rCompoundAmount-${id}">0</span></div>
-                    <div class="result">Interest Earned: <span id="rCompoundInterest-${id}">0</span></div>
+                    <div class="result">Total Amount: <span id="rCompoundAmount-${id}">0</span><button class="copy-btn" onclick="copyResult('rCompoundAmount-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Interest Earned: <span id="rCompoundInterest-${id}">0</span><button class="copy-btn" onclick="copyResult('rCompoundInterest-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'compound')" id="compoundChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="compoundChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Compound Growth Over Time</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('compoundChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="compoundChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
             <!-- INVESTMENT GOAL CALCULATOR -->
             <div id="investmentGoal-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Investment Goal</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'investmentGoal-tooltip-${id}')">ℹ️</span>
+                    <h3>Investment Goal <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'investmentGoal-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="investmentGoal-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -430,14 +478,26 @@ function generateCalculatorHTML(id) {
                     <label for="igReturn-${id}">Expected Annual Return (%)</label>
                     <input type="number" id="igReturn-${id}" placeholder="Annual Return" value="12" step="0.01" oninput="calcInvestmentGoal(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Monthly Investment Needed: <span id="rInvestmentGoal-${id}">0</span></div>
+                <div class="result">Monthly Investment Needed: <span id="rInvestmentGoal-${id}">0</span><button class="copy-btn" onclick="copyResult('rInvestmentGoal-${id}', this)" title="Copy">📋</button></div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'investmentGoal')" id="investmentGoalChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="investmentGoalChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Savings Progress</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('investmentGoalChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="investmentGoalChart-${id}"></canvas>
+                    </div>
+                </div>
             </div>
 
             <!-- COST OF DELAY CALCULATOR -->
             <div id="costOfDelay-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Cost of Delay</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'costOfDelay-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'costOfDelay-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="costOfDelay-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -456,14 +516,14 @@ function generateCalculatorHTML(id) {
                     <label for="codDelay-${id}">Delay (Years)</label>
                     <input type="number" id="codDelay-${id}" placeholder="Delay in Years" step="0.1" oninput="calcCostOfDelay(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Cost of Delay (Lost Growth): <span id="rCostOfDelay-${id}">0</span></div>
+                <div class="result">Cost of Delay (Lost Growth): <span id="rCostOfDelay-${id}">0</span><button class="copy-btn" onclick="copyResult('rCostOfDelay-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- RETIREMENT AGE CALCULATOR -->
             <div id="retirementAge-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Retirement Age</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'retirementAge-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'retirementAge-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="retirementAge-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -486,14 +546,14 @@ function generateCalculatorHTML(id) {
                     <label for="raReturn-${id}">Expected Return (%)</label>
                     <input type="number" id="raReturn-${id}" placeholder="Return %" value="10" step="0.01" oninput="calcRetirementAge(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Retirement Age: <span id="rRetirementAge-${id}">0</span></div>
+                <div class="result">Retirement Age: <span id="rRetirementAge-${id}">0</span><button class="copy-btn" onclick="copyResult('rRetirementAge-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- LOAN EMI CALCULATOR -->
             <div id="loanEmi-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Loan EMI Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'loanEmi-tooltip-${id}')">ℹ️</span>
+                    <h3>Loan EMI Calculator <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'loanEmi-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="loanEmi-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -513,16 +573,28 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="loanYears-${id}" placeholder="Years" step="0.1" oninput="calcLoanEmi(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Monthly EMI: <span id="rLoanEmi-${id}">0</span></div>
-                    <div class="result">Total Interest: <span id="rLoanInterest-${id}">0</span></div>
+                    <div class="result">Monthly EMI: <span id="rLoanEmi-${id}">0</span><button class="copy-btn" onclick="copyResult('rLoanEmi-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Total Interest: <span id="rLoanInterest-${id}">0</span><button class="copy-btn" onclick="copyResult('rLoanInterest-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'loanEmi')" id="loanEmiChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="loanEmiChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Principal vs Interest</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('loanEmiChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="loanEmiChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
             <!-- PROPERTY ROI CALCULATOR -->
             <div id="propertyRoi-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Property Investment ROI</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'propertyRoi-tooltip-${id}')">ℹ️</span>
+                    <h3>Property Investment ROI <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'propertyRoi-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="propertyRoi-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -543,16 +615,28 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="propCurrentValue-${id}" placeholder="Current Value" step="0.01" oninput="calcPropertyRoi(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Rental Yield: <span id="rPropertyYield-${id}">0</span>%</div>
-                    <div class="result">Total ROI: <span id="rPropertyRoi-${id}">0</span>%</div>
+                    <div class="result">Rental Yield: <span id="rPropertyYield-${id}">0</span>%<button class="copy-btn" onclick="copyResult('rPropertyYield-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Total ROI: <span id="rPropertyRoi-${id}">0</span>%<button class="copy-btn" onclick="copyResult('rPropertyRoi-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'propertyRoi')" id="propertyRoiChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="propertyRoiChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Property Returns</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('propertyRoiChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="propertyRoiChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
             <!-- MORTGAGE CALCULATOR -->
             <div id="mortgageEmi-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Mortgage/Home Loan</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'mortgageEmi-tooltip-${id}')">ℹ️</span>
+                    <h3>Mortgage/Home Loan <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'mortgageEmi-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="mortgageEmi-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -574,9 +658,21 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="mortgageYears-${id}" placeholder="Years" step="0.1" oninput="calcMortgage(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Loan Amount: <span id="rMortgageLoan-${id}">0</span></div>
-                    <div class="result">Monthly EMI: <span id="rMortgageEmi-${id}">0</span></div>
-                    <div class="result">Total Interest: <span id="rMortgageInterest-${id}">0</span></div>
+                    <div class="result">Loan Amount: <span id="rMortgageLoan-${id}">0</span><button class="copy-btn" onclick="copyResult('rMortgageLoan-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Monthly EMI: <span id="rMortgageEmi-${id}">0</span><button class="copy-btn" onclick="copyResult('rMortgageEmi-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Total Interest: <span id="rMortgageInterest-${id}">0</span><button class="copy-btn" onclick="copyResult('rMortgageInterest-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'mortgage')" id="mortgageChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="mortgageChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Principal vs Interest</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('mortgageChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="mortgageChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -584,7 +680,7 @@ function generateCalculatorHTML(id) {
             <div id="rule72-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Rule of 72</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'rule72-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'rule72-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="rule72-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -599,14 +695,14 @@ function generateCalculatorHTML(id) {
                     <label for="rule72Rate-${id}">Annual Return Rate (%)</label>
                     <input type="number" id="rule72Rate-${id}" placeholder="Annual Return %" step="0.01" oninput="calcRule72(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Years to Double: <span id="rRule72-${id}">0</span></div>
+                <div class="result">Years to Double: <span id="rRule72-${id}">0</span><button class="copy-btn" onclick="copyResult('rRule72-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- INFLATION CALCULATOR -->
             <div id="inflation-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Inflation Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'inflation-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'inflation-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="inflation-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -625,14 +721,14 @@ function generateCalculatorHTML(id) {
                     <label for="inflationYears-${id}">Time Period (Years)</label>
                     <input type="number" id="inflationYears-${id}" placeholder="Years" step="0.1" oninput="calcInflation(${id})" onkeypress="handleEnter(event)">
                 </div>
-                <div class="result">Purchasing Power (Future Value): <span id="rInflation-${id}">0</span></div>
+                <div class="result">Purchasing Power (Future Value): <span id="rInflation-${id}">0</span><button class="copy-btn" onclick="copyResult('rInflation-${id}', this)" title="Copy">📋</button></div>
             </div>
 
             <!-- EXPENSE RATIO CALCULATOR -->
             <div id="expenseRatio-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Expense Ratio Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'expenseRatio-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'expenseRatio-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="expenseRatio-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -653,8 +749,8 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="erGrossReturn-${id}" placeholder="Gross Return %" step="0.01" oninput="calcExpenseRatio(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Annual Fee: <span id="rExpenseRatioFee-${id}">0</span></div>
-                    <div class="result">Net Return: <span id="rExpenseRatioNet-${id}">0</span>%</div>
+                    <div class="result">Annual Fee: <span id="rExpenseRatioFee-${id}">0</span><button class="copy-btn" onclick="copyResult('rExpenseRatioFee-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Net Return: <span id="rExpenseRatioNet-${id}">0</span>%<button class="copy-btn" onclick="copyResult('rExpenseRatioNet-${id}', this)" title="Copy">📋</button></div>
                 </div>
             </div>
 
@@ -662,7 +758,7 @@ function generateCalculatorHTML(id) {
             <div id="emergencyFund-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Emergency Fund Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'emergencyFund-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'emergencyFund-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="emergencyFund-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -680,7 +776,7 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="efMonths-${id}" placeholder="Months" value="6" step="0.5" oninput="calcEmergencyFund(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Emergency Fund Needed: <span id="rEmergencyFund-${id}">0</span></div>
+                    <div class="result">Emergency Fund Needed: <span id="rEmergencyFund-${id}">0</span><button class="copy-btn" onclick="copyResult('rEmergencyFund-${id}', this)" title="Copy">📋</button></div>
                 </div>
             </div>
 
@@ -688,7 +784,7 @@ function generateCalculatorHTML(id) {
             <div id="monthlySavings-${id}" class="calculator-section" hidden>
                 <div class="section-header">
                     <h3>Monthly Savings Calculator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'monthlySavings-tooltip-${id}')">ℹ️</span>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'monthlySavings-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="monthlySavings-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -708,15 +804,15 @@ function generateCalculatorHTML(id) {
                     <input type="number" id="msYears-${id}" placeholder="Years" value="10" step="0.5" oninput="calcMonthlySavings(${id})" onkeypress="handleEnter(event)">
                 </div>
                 <div class="result-group">
-                    <div class="result">Monthly Savings: <span id="rMonthlySavings-${id}">0</span></div>
+                    <div class="result">Monthly Savings: <span id="rMonthlySavings-${id}">0</span><button class="copy-btn" onclick="copyResult('rMonthlySavings-${id}', this)" title="Copy">📋</button></div>
                 </div>
             </div>
 
             <!-- BUDGET ALLOCATOR -->
             <div id="budgetAllocator-${id}" class="calculator-section" hidden>
                 <div class="section-header">
-                    <h3>Budget Allocator</h3>
-                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'budgetAllocator-tooltip-${id}')">ℹ️</span>
+                    <h3>Budget Allocator <span class="section-viz-badge">VIZ</span></h3>
+                    <span class="tooltip-icon" onclick="toggleTooltip(event, 'budgetAllocator-tooltip-${id}')">i</span>
                 </div>
                 <div class="tooltip-box" id="budgetAllocator-tooltip-${id}">
                     <button class="tooltip-close" onclick="closeTooltip(event)">×</button>
@@ -741,9 +837,21 @@ function generateCalculatorHTML(id) {
                     <div class="result" style="display: flex; justify-content: space-between; gap: 10px;">
                         <span>Total Allocation: <span id="rBudgetTotal-${id}" style="font-weight: 600; color: var(--accent-primary);">0</span>%</span>
                     </div>
-                    <div class="result">Needs: <span id="rBudgetNeeds-${id}">0</span></div>
-                    <div class="result">Wants: <span id="rBudgetWants-${id}">0</span></div>
-                    <div class="result">Savings: <span id="rBudgetSavings-${id}">0</span></div>
+                    <div class="result">Needs: <span id="rBudgetNeeds-${id}">0</span><button class="copy-btn" onclick="copyResult('rBudgetNeeds-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Wants: <span id="rBudgetWants-${id}">0</span><button class="copy-btn" onclick="copyResult('rBudgetWants-${id}', this)" title="Copy">📋</button></div>
+                    <div class="result">Savings: <span id="rBudgetSavings-${id}">0</span><button class="copy-btn" onclick="copyResult('rBudgetSavings-${id}', this)" title="Copy">📋</button></div>
+                </div>
+                <button class="chart-toggle-btn" onclick="toggleChart(${id}, 'budgetAllocator')" id="budgetAllocatorChartBtn-${id}">Toggle Chart <span class="viz-badge">VIZ</span></button>
+                <div class="chart-section" id="budgetAllocatorChartSection-${id}">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span>Budget Allocation (50/30/20 Rule)</span>
+                            <div class="chart-actions">
+                                <button class="download-btn" onclick="downloadChart('budgetAllocatorChart-${id}')">Download</button>
+                            </div>
+                        </div>
+                        <canvas id="budgetAllocatorChart-${id}"></canvas>
+                    </div>
                 </div>
             </div>
 
